@@ -109,9 +109,9 @@ def md_debug():
         return redirect('/')
 
 
-@blueprint.route('/visualise/events')
+@blueprint.route('/<any("visualise", "visualize"):page>/events')
 # @register_breadcrumb(blueprint, '.visualise_events', _('Visualise Events'))
-def visualise_events_landing():
+def visualise_events_landing(page=None):
     """Display landing page."""
     try:
         return render_template(
@@ -120,10 +120,10 @@ def visualise_events_landing():
         return abort(404)
 
 
-@blueprint.route('/visualise/events/<string:experiment>')
-@blueprint.route('/visualise/events/<string:experiment>/<int:eventid>')
+@blueprint.route('/<any("visualise", "visualize"):page>/events/<string:experiment>')
+@blueprint.route('/<any("visualise", "visualize"):page>/events/<string:experiment>/<int:eventid>')
 # @register_breadcrumb(blueprint, '.visualise_events', _('Visualise Events'))
-def visualise_events(experiment='cms', eventid=None):
+def visualise_events(page=None, experiment='cms', eventid=None):
     """Display visualisations."""
     # FIXME TO remove when Opera records released
     if experiment == 'opera':
@@ -139,11 +139,11 @@ def visualise_events(experiment='cms', eventid=None):
         return abort(404)
 
 
-@blueprint.route('/visualise/histograms')
-@blueprint.route('/visualise/histograms/<string:experiment>')
+@blueprint.route('/<any("visualise", "visualize"):page>/histograms')
+@blueprint.route('/<any("visualise", "visualize"):page>/histograms/<string:experiment>')
 # @register_breadcrumb(blueprint, '.visualise_histograms',
 #                      _('Visualise Histograms'))
-def visualise_histograms(experiment='cms'):
+def visualise_histograms(page=None, experiment='cms'):
     """Display histograms."""
     try:
         return render_template(
